@@ -22,7 +22,7 @@
     --maxw:1240px;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth; overflow-x:hidden; width:100%;}
   body.no-scroll{position:fixed; left:0; right:0; overflow:hidden;}
   body{
     background:var(--bg);
@@ -30,6 +30,8 @@
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     line-height:1.5;
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    width:100%;
   }
   img,svg{display:block; max-width:100%;}
   a{color:inherit; text-decoration:none;}
@@ -269,9 +271,11 @@
     position:fixed; top:0; right:0; width:400px; max-width:92vw;
     height:100vh; height:100dvh;
     background:var(--bg-alt); border-left:1px solid var(--border); z-index:100;
-    transform:translateX(100%); transition:transform .3s ease; display:flex; flex-direction:column;
+    transform:translateX(100%); visibility:hidden;
+    transition:transform .3s ease, visibility 0s linear .3s;
+    display:flex; flex-direction:column;
   }
-  .drawer.open{transform:translateX(0);}
+  .drawer.open{transform:translateX(0); visibility:visible; transition:transform .3s ease, visibility 0s linear 0s;}
   .drawer-head{
     display:flex; align-items:center; justify-content:space-between;
     padding:22px 24px; border-bottom:1px solid var(--border);
@@ -319,10 +323,17 @@
   }
   @media (max-width:680px){
     .nav-links{display:none;}
-    .burger{display:flex;}
     .grid{grid-template-columns:repeat(2,1fr); gap:14px;}
     .promo{padding:36px 24px;}
     .footer-grid{grid-template-columns:1fr;}
+    /* La marca + los iconos de cuenta/carrito deben caber en una sola fila
+       en pantallas angostas: se achican el logo y los botones, y se ocultan
+       los iconos de "Buscar" y el menú hamburguesa (por ahora no hacen nada). */
+    .logo{font-size:16px; gap:6px;}
+    .nav-actions{gap:8px;}
+    .nav-actions .icon-btn{width:36px; height:36px;}
+    .nav-actions [aria-label="Buscar"]{display:none;}
+    .burger{display:none;}
   }
 
   /* ---------- Account button / avatar ---------- */
