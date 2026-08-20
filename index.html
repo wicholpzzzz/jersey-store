@@ -291,7 +291,11 @@
   .qty-ctrl button{background:none; color:var(--text-dim); font-size:15px; width:20px; font-weight:700;}
   .qty-ctrl span{font-size:12px; font-weight:700; min-width:14px; text-align:center;}
   .d-item-remove{color:var(--text-faint); font-size:11px; text-decoration:underline; margin-top:2px;}
-  .drawer-foot{border-top:1px solid var(--border); padding:20px 24px;}
+  .drawer-foot{
+    border-top:1px solid var(--border); padding:20px 24px;
+    overflow-y:auto; max-height:72vh; -webkit-overflow-scrolling:touch;
+    flex-shrink:0;
+  }
   .drawer-total{display:flex; justify-content:space-between; font-weight:700; font-size:15px; margin-bottom:16px;}
   .drawer-foot .btn{width:100%; justify-content:center;}
 
@@ -1615,8 +1619,9 @@ async function saveProduct(event) {
     setTimeout(() => { document.getElementById("productForm").classList.remove("open"); resetProductForm(); }, 700);
   } catch (err) {
     console.error(err);
+    const detail = err?.message || err?.error_description || err?.msg || "";
     msg.className = "form-msg err";
-    msg.textContent = "No se pudo guardar. Revisa que hayas ejecutado schema.sql (incluye permisos de admin y el bucket product-media).";
+    msg.textContent = "No se pudo guardar" + (detail ? `: ${detail}` : ". Revisa que hayas ejecutado schema.sql (incluye permisos de admin y el bucket product-media).");
   }
 }
 
