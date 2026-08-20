@@ -756,10 +756,10 @@
   <div class="drawer-items" id="drawerItems"></div>
   <div class="drawer-foot">
     <div class="drawer-total"><span>Total</span><span id="drawerTotal">$0.00</span></div>
-    <div id="paypalButtons"></div>
     <div class="login-to-pay" id="loginToPay" style="display:none;">
-      Inicia sesión para pagar con PayPal — <a href="#" id="loginToPayLink">Iniciar sesión</a>
+      Puedes pagar como invitado, sin crear una cuenta. Si prefieres poder ver el estatus de tu pedido más adelante, <a href="#" id="loginToPayLink">inicia sesión o crea una cuenta</a>.
     </div>
+    <div id="paypalButtons"></div>
   </div>
 </div>
 
@@ -1333,12 +1333,10 @@ function renderPaypalArea() {
 
   if (!hasItems) { container.style.display = "none"; loginPrompt.style.display = "none"; return; }
 
-  if (!currentUser) {
-    container.style.display = "none";
-    loginPrompt.style.display = "block";
-    return;
-  }
-  loginPrompt.style.display = "none";
+  // Se puede pagar con o sin cuenta. Si no hay sesión, solo se muestra un
+  // aviso informativo (no bloquea el pago) invitando a iniciar sesión para
+  // poder ver el pedido después.
+  loginPrompt.style.display = currentUser ? "none" : "block";
   container.style.display = "block";
 
   if (!window.paypal) {
@@ -1394,7 +1392,9 @@ async function recordOrder(paypalOrderId, paypalDetails) {
     cart = {};
     updateCartUI();
     closeDrawer();
-    showToast("¡Pago verificado y pedido registrado! Revisa el estatus en \"Mis pedidos\".");
+    showToast(currentUser
+      ? "¡Pago verificado y pedido registrado! Revisa el estatus en \"Mis pedidos\"."
+      : "¡Pago verificado y pedido registrado! Te enviaremos los detalles al correo con el que pagaste en PayPal.");
   } catch (err) {
     console.error(err);
     showToast("El pago se completó, pero no se pudo verificar/guardar el pedido. Contáctanos.");
