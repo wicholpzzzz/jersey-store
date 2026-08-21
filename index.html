@@ -6,19 +6,21 @@
 <title>JERSEY°STORE — Jerseys oficiales y retro</title>
 <style>
   :root{
-    --bg:#0b0d12;
-    --bg-alt:#12151c;
-    --card:#171b24;
-    --card-hover:#1d2230;
-    --border:#252a37;
-    --text:#f5f6f8;
-    --text-dim:#9aa3b2;
-    --text-faint:#5c6577;
-    --accent:#ff5b2e;
-    --accent-2:#2ee6d6;
-    --accent-dark:#0b0d12;
-    --danger:#ff4d6d;
-    --radius:16px;
+    --bg:#0a0a0b;
+    --bg-alt:#141416;
+    --card:#18191b;
+    --card-hover:#212224;
+    --border:#28292b;
+    --text:#f6f7f2;
+    --text-dim:#a4a7a1;
+    --text-faint:#6a6d66;
+    --accent:#d6ff3f;
+    --accent-2:#7ec850;
+    --accent-dark:#0a0a0b;
+    --accent-ink:#0a0a0b;
+    --sale:#ff8a3d;
+    --danger:#ff5470;
+    --radius:18px;
     --maxw:1240px;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
@@ -42,7 +44,7 @@
   /* ---------- Header ---------- */
   header{
     position:sticky; top:0; z-index:50;
-    background:rgba(11,13,18,0.85);
+    background:rgba(10,10,11,0.85);
     backdrop-filter:blur(10px);
     border-bottom:1px solid var(--border);
   }
@@ -57,7 +59,7 @@
   .logo .dot{color:var(--accent);}
   .nav-links{display:flex; gap:32px; font-size:14px; font-weight:600; color:var(--text-dim);}
   .nav-links a{transition:color .2s;}
-  .nav-links a:hover{color:var(--text);}
+  .nav-links a:hover{color:var(--accent);}
   .nav-actions{display:flex; align-items:center; gap:18px;}
   .icon-btn{
     background:none; color:var(--text); width:40px; height:40px;
@@ -67,7 +69,7 @@
   .icon-btn:hover{background:var(--card-hover);}
   .cart-count{
     position:absolute; top:2px; right:2px;
-    background:var(--accent); color:#0b0d12;
+    background:var(--accent); color:var(--accent-ink);
     font-size:10px; font-weight:800;
     width:16px; height:16px; border-radius:50%;
     display:flex; align-items:center; justify-content:center;
@@ -79,15 +81,15 @@
     position:relative; overflow:hidden;
     padding:90px 0 70px;
     background:
-      radial-gradient(ellipse 700px 400px at 15% 20%, rgba(255,91,46,0.18), transparent 60%),
-      radial-gradient(ellipse 600px 500px at 85% 60%, rgba(46,230,214,0.14), transparent 60%);
+      radial-gradient(ellipse 700px 400px at 15% 20%, rgba(214,255,63,0.16), transparent 60%),
+      radial-gradient(ellipse 600px 500px at 85% 60%, rgba(126,200,80,0.16), transparent 60%);
   }
   .hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center;}
   .eyebrow{
     display:inline-flex; align-items:center; gap:8px;
     font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
-    color:var(--accent-2); background:rgba(46,230,214,0.1);
-    border:1px solid rgba(46,230,214,0.3);
+    color:var(--accent); background:rgba(214,255,63,0.1);
+    border:1px solid rgba(214,255,63,0.3);
     padding:6px 14px; border-radius:999px; margin-bottom:22px;
   }
   .hero h1{
@@ -105,10 +107,10 @@
     display:inline-flex; align-items:center; gap:8px; transition:transform .15s, opacity .2s;
   }
   .btn:active{transform:scale(0.97);}
-  .btn-primary{background:var(--accent); color:#0b0d12;}
+  .btn-primary{background:var(--accent); color:var(--accent-ink);}
   .btn-primary:hover{opacity:0.9;}
   .btn-outline{background:transparent; color:var(--text); border:1px solid var(--border);}
-  .btn-outline:hover{background:var(--card-hover);}
+  .btn-outline:hover{background:var(--card-hover); border-color:var(--accent);}
 
   .hero-visual{position:relative; display:flex; align-items:center; justify-content:center;}
   .hero-orb{
@@ -118,6 +120,19 @@
   }
   .hero-jersey{position:relative; width:280px; animation:float 4s ease-in-out infinite;}
   @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+  .hero-media-frame{
+    position:relative; width:300px; max-width:100%; aspect-ratio:3/4; border-radius:26px;
+    overflow:hidden; border:1px solid var(--border);
+    box-shadow:0 30px 70px rgba(214,255,63,0.16);
+  }
+  .hero-media-frame video, .hero-media-frame img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+  .hero-media-tag{
+    position:absolute; bottom:14px; left:14px; right:14px; z-index:1;
+    background:rgba(10,10,11,0.6); backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,0.08);
+    border-radius:12px; padding:10px 14px;
+  }
+  .hero-media-tag .team{font-size:10px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; color:var(--accent);}
+  .hero-media-tag .name{font-size:13px; font-weight:800; margin-top:2px; color:var(--text);}
 
   .trust-bar{
     border-top:1px solid var(--border); border-bottom:1px solid var(--border);
@@ -143,32 +158,33 @@
     background:var(--card); border:1px solid var(--border); color:var(--text-dim);
     transition:all .2s;
   }
-  .filter-pill:hover{color:var(--text); border-color:var(--text-faint);}
-  .filter-pill.active{background:var(--text); color:var(--bg); border-color:var(--text);}
+  .filter-pill:hover{color:var(--text); border-color:var(--accent);}
+  .filter-pill.active{background:var(--accent); color:var(--accent-ink); border-color:var(--accent);}
 
   /* ---------- Product grid ---------- */
   .grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
   .card{
-    background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+    background:var(--card); border:1px solid var(--border); border-radius:20px;
     overflow:hidden; transition:transform .2s, border-color .2s;
     display:flex; flex-direction:column;
   }
-  .card:hover{transform:translateY(-4px); border-color:var(--text-faint);}
+  .card:hover{transform:translateY(-4px); border-color:var(--accent);}
   .card-media{
     position:relative; aspect-ratio:1/1;
     display:flex; align-items:center; justify-content:center;
     padding:26px;
+    background:linear-gradient(145deg, rgba(214,255,63,0.12), rgba(126,200,80,0.12));
   }
   .card-badge{
     position:absolute; top:12px; left:12px;
     font-size:10px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase;
-    padding:5px 10px; border-radius:6px; background:rgba(0,0,0,0.4); backdrop-filter:blur(4px);
+    padding:5px 10px; border-radius:999px; background:rgba(10,10,11,0.55); backdrop-filter:blur(4px);
   }
-  .badge-new{color:var(--accent-2); border:1px solid rgba(46,230,214,0.4);}
-  .badge-sale{color:var(--danger); border:1px solid rgba(255,77,109,0.4);}
+  .badge-new{color:var(--accent); border:1px solid rgba(214,255,63,0.5);}
+  .badge-sale{color:var(--sale); border:1px solid rgba(255,138,61,0.45);}
   .card-fav{
     position:absolute; top:10px; right:10px; width:32px; height:32px; border-radius:50%;
-    background:rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center;
+    background:rgba(10,10,11,0.55); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center;
     color:var(--text-dim); transition:color .2s;
   }
   .card-fav:hover{color:var(--danger);}
@@ -176,29 +192,29 @@
   .card-team{font-size:11px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; color:var(--text-faint);}
   .card-name{font-size:15px; font-weight:700;}
   .card-rating{display:flex; align-items:center; gap:4px; font-size:12px; color:var(--text-dim);}
-  .card-rating svg{color:#ffb020;}
+  .card-rating svg{color:var(--accent);}
   .card-footer{display:flex; align-items:center; justify-content:space-between; margin-top:10px;}
   .card-price{display:flex; align-items:baseline; gap:8px;}
-  .price-now{font-size:17px; font-weight:800;}
+  .price-now{font-size:17px; font-weight:800; color:var(--accent);}
   .price-old{font-size:13px; color:var(--text-faint); text-decoration:line-through;}
   .add-btn{
-    width:38px; height:38px; border-radius:10px; background:var(--bg-alt);
-    border:1px solid var(--border); display:flex; align-items:center; justify-content:center;
-    color:var(--text); transition:background .2s, color .2s;
+    width:38px; height:38px; border-radius:12px; background:var(--bg-alt);
+    border:1px solid var(--accent); display:flex; align-items:center; justify-content:center;
+    color:var(--accent); transition:background .2s, color .2s;
   }
-  .add-btn:hover{background:var(--accent); color:#0b0d12; border-color:var(--accent);}
+  .add-btn:hover{background:var(--accent); color:var(--accent-ink); border-color:var(--accent);}
 
   /* ---------- Promo banner ---------- */
   .promo{
     border-radius:20px; padding:56px 48px;
-    background:linear-gradient(120deg, #1a1030, #0b0d12 60%);
+    background:linear-gradient(120deg, #16210a, #0a0a0b 60%);
     border:1px solid var(--border);
     display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;
     position:relative; overflow:hidden;
   }
   .promo::before{
     content:""; position:absolute; inset:0;
-    background:radial-gradient(circle at 80% 30%, rgba(255,91,46,0.25), transparent 55%);
+    background:radial-gradient(circle at 80% 30%, rgba(214,255,63,0.22), transparent 55%);
   }
   .promo-text{position:relative; max-width:520px;}
   .promo-text h3{font-size:28px; font-weight:800; margin-bottom:10px;}
@@ -212,13 +228,13 @@
   /* ---------- Testimonials ---------- */
   .testimonials{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
   .t-card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:26px;}
-  .t-stars{display:flex; gap:3px; color:#ffb020; margin-bottom:14px;}
+  .t-stars{display:flex; gap:3px; color:var(--accent); margin-bottom:14px;}
   .t-quote{font-size:14px; color:var(--text-dim); margin-bottom:18px;}
   .t-person{display:flex; align-items:center; gap:12px;}
   .t-avatar{
     width:38px; height:38px; border-radius:50%;
     background:linear-gradient(135deg,var(--accent),var(--accent-2));
-    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; color:#0b0d12;
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; color:var(--accent-ink);
   }
   .t-name{font-size:13px; font-weight:700;}
   .t-role{font-size:12px; color:var(--text-faint);}
@@ -285,9 +301,12 @@
   .drawer-empty{color:var(--text-faint); font-size:13px; text-align:center; margin-top:60px;}
   .d-item{display:flex; gap:14px;}
   .d-item-media{
-    width:64px; height:64px; border-radius:10px; background:var(--card);
+    position:relative; overflow:hidden;
+    width:64px; height:64px; border-radius:12px;
+    background:linear-gradient(145deg, rgba(214,255,63,0.14), rgba(126,200,80,0.14));
     display:flex; align-items:center; justify-content:center; flex-shrink:0; padding:8px;
   }
+  .d-item-media video, .d-item-media img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
   .d-item-info{flex:1; display:flex; flex-direction:column; gap:4px;}
   .d-item-name{font-size:13px; font-weight:700;}
   .d-item-team{font-size:11px; color:var(--text-faint);}
@@ -341,7 +360,7 @@
     width:38px; height:38px; border-radius:50%;
     background:linear-gradient(135deg,var(--accent),var(--accent-2));
     display:flex; align-items:center; justify-content:center;
-    font-weight:800; font-size:13px; color:#0b0d12; flex-shrink:0;
+    font-weight:800; font-size:13px; color:var(--accent-ink); flex-shrink:0;
   }
   .account-menu{
     position:absolute; top:64px; right:24px; width:220px; z-index:60;
@@ -360,7 +379,7 @@
   .account-menu button:hover{background:var(--card-hover);}
   .admin-tag{
     font-size:9px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase;
-    background:rgba(255,91,46,0.15); color:var(--accent); padding:2px 7px; border-radius:5px; margin-left:6px;
+    background:rgba(214,255,63,0.15); color:var(--accent); padding:2px 7px; border-radius:5px; margin-left:6px;
   }
 
   /* ---------- Modal (auth) ---------- */
@@ -423,17 +442,17 @@
     color:var(--text); font-size:12px; width:130px;
   }
   .save-row-btn{
-    padding:7px 14px; border-radius:8px; background:var(--accent); color:#0b0d12;
+    padding:7px 14px; border-radius:8px; background:var(--accent); color:var(--accent-ink);
     font-size:12px; font-weight:800;
   }
   .status-badge{
     display:inline-block; padding:4px 10px; border-radius:999px; font-size:11px; font-weight:800;
   }
   .status-pendiente{background:rgba(255,176,32,0.15); color:#ffb020;}
-  .status-en_proceso{background:rgba(46,230,214,0.15); color:var(--accent-2);}
+  .status-en_proceso{background:rgba(77,163,255,0.15); color:#4da3ff;}
   .status-enviado{background:rgba(124,92,255,0.15); color:#7c5cff;}
-  .status-entregado{background:rgba(60,200,120,0.15); color:#3cc878;}
-  .status-cancelado{background:rgba(255,77,109,0.15); color:var(--danger);}
+  .status-entregado{background:rgba(126,200,80,0.18); color:var(--accent-2);}
+  .status-cancelado{background:rgba(255,84,112,0.15); color:var(--danger);}
   #paypalButtons{margin-top:14px;}
   .login-to-pay{
     text-align:center; font-size:12px; color:var(--text-dim); margin-top:14px;
@@ -456,7 +475,7 @@
   .guest-order-card .d-item-row > span:first-child{color:var(--text-faint);}
 
   /* ---------- Media (foto/video) dentro de la tarjeta de producto ---------- */
-  .card-media{cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:rgba(255,91,46,0.25);}
+  .card-media{cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:rgba(214,255,63,0.25);}
   .card-media:active{opacity:.85;}
   .card-media video,
   .card-media img{
@@ -472,21 +491,32 @@
   .qv-box{max-width:640px;}
   .qv-layout{display:grid; grid-template-columns:1fr 1fr; gap:26px;}
   .qv-media{
-    position:relative; aspect-ratio:1/1; border-radius:14px; overflow:hidden;
+    position:relative; aspect-ratio:1/1; border-radius:18px; overflow:hidden;
+    background:linear-gradient(145deg, rgba(214,255,63,0.14), rgba(126,200,80,0.14));
     display:flex; align-items:center; justify-content:center;
   }
   .qv-media video, .qv-media img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
   .qv-team{font-size:11px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; color:var(--text-faint);}
-  .qv-name{font-size:22px; font-weight:800; margin:4px 0 10px;}
-  .qv-price{font-size:20px; font-weight:800; margin-bottom:18px;}
+  .qv-name{font-size:22px; font-weight:800; margin:4px 0 8px;}
+  .qv-rating{display:flex; align-items:center; gap:6px; font-size:13px; color:var(--text-dim); margin-bottom:14px;}
+  .qv-rating svg{color:var(--accent);}
+  .qv-price{font-size:22px; font-weight:800; margin-bottom:18px; color:var(--accent);}
   .qv-label{font-size:12px; font-weight:700; color:var(--text-dim); margin-bottom:8px; display:block;}
+  .qv-details{
+    background:var(--bg-alt); border:1px solid var(--border); border-radius:12px;
+    padding:14px 16px; margin-bottom:18px; display:flex; flex-direction:column; gap:8px; font-size:12px;
+  }
+  .qv-details div{display:flex; justify-content:space-between; gap:12px;}
+  .qv-details span:first-child{color:var(--text-faint); font-weight:700;}
+  .qv-details span:last-child{color:var(--text-dim); text-align:right;}
+  .qv-media .card-badge{top:14px; left:14px;}
   .size-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px;}
   .size-pill{
-    width:44px; height:40px; border-radius:10px; background:var(--card); border:1px solid var(--border);
+    width:44px; height:40px; border-radius:12px; background:var(--card); border:1px solid var(--border);
     color:var(--text); font-size:13px; font-weight:700; transition:all .15s;
   }
-  .size-pill:hover{border-color:var(--text-faint);}
-  .size-pill.active{background:var(--accent); color:#0b0d12; border-color:var(--accent);}
+  .size-pill:hover{border-color:var(--accent);}
+  .size-pill.active{background:var(--accent); color:var(--accent-ink); border-color:var(--accent);}
   .qv-qty-row{display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;}
   .qv-qty-row .qty-ctrl{background:var(--card); padding:6px 12px;}
   .qv-qty-row .qty-ctrl button{font-size:18px; width:24px;}
@@ -523,7 +553,8 @@
   .btn-danger{background:rgba(255,77,109,0.12); color:var(--danger); border:1px solid rgba(255,77,109,0.3);}
   .btn-danger:hover{background:rgba(255,77,109,0.22);}
   .admin-thumb{
-    width:48px; height:48px; border-radius:8px; overflow:hidden; position:relative;
+    width:48px; height:48px; border-radius:10px; overflow:hidden; position:relative;
+    background:linear-gradient(145deg, rgba(214,255,63,0.14), rgba(126,200,80,0.14));
     display:flex; align-items:center; justify-content:center; flex-shrink:0;
   }
   .admin-thumb video, .admin-thumb img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
@@ -538,6 +569,10 @@
   <symbol id="jersey-icon" viewBox="0 0 64 64">
     <path d="M20 4 L8 14 L14 24 L18 21 L18 58 L46 58 L46 21 L50 24 L56 14 L44 4 L38 8 C36 10 28 10 26 8 Z" />
   </symbol>
+  <linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#d6ff3f"/>
+    <stop offset="1" stop-color="#7ec850"/>
+  </linearGradient>
 </svg>
 
 <header>
@@ -582,16 +617,10 @@
         <a href="#ofertas" class="btn btn-outline">Ver ofertas</a>
       </div>
     </div>
-    <div class="hero-visual">
+    <div class="hero-visual" id="heroVisual">
       <div class="hero-orb"></div>
       <svg class="hero-jersey" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="0">
-        <use href="#jersey-icon" fill="url(#heroGrad)"/>
-      </svg>
-      <svg width="0" height="0">
-        <linearGradient id="heroGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#ff5b2e"/>
-          <stop offset="1" stop-color="#2ee6d6"/>
-        </linearGradient>
+        <use href="#jersey-icon" fill="url(#brandGrad)"/>
       </svg>
     </div>
   </div>
@@ -688,15 +717,15 @@
     <div class="testimonials" style="margin-bottom:40px;">
       <!-- TODO: reemplaza los "#" con tus enlaces reales -->
       <a href="#" target="_blank" rel="noopener" class="t-card" style="display:flex; align-items:center; gap:14px;">
-        <div class="t-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0b0d12" stroke-width="2.4"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg></div>
+        <div class="t-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0a0a0b" stroke-width="2.4"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg></div>
         <div><div class="t-name">Instagram</div><div class="t-role">@tu_usuario</div></div>
       </a>
       <a href="#" target="_blank" rel="noopener" class="t-card" style="display:flex; align-items:center; gap:14px;">
-        <div class="t-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0b0d12" stroke-width="2.4"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></div>
+        <div class="t-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0a0a0b" stroke-width="2.4"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></div>
         <div><div class="t-name">TikTok</div><div class="t-role">@tu_usuario</div></div>
       </a>
       <a href="#" target="_blank" rel="noopener" class="t-card" style="display:flex; align-items:center; gap:14px;">
-        <div class="t-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0b0d12" stroke-width="2.4"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+        <div class="t-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0a0a0b" stroke-width="2.4"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
         <div><div class="t-name">TikTok Shop</div><div class="t-role">Compra desde la app</div></div>
       </a>
     </div>
@@ -852,6 +881,7 @@
       <div>
         <span class="qv-team" id="qvTeam"></span>
         <div class="qv-name" id="qvName"></div>
+        <div class="qv-rating" id="qvRating"></div>
         <div class="qv-price" id="qvPrice"></div>
         <span class="qv-label">Talla</span>
         <div class="size-row" id="qvSizes"></div>
@@ -863,6 +893,7 @@
             <button type="button" onclick="qvChangeQty(1)">+</button>
           </div>
         </div>
+        <div class="qv-details" id="qvDetails"></div>
         <button class="btn btn-primary" id="qvAddBtn" onclick="confirmAddToCart()">Agregar al carrito</button>
         <div class="form-msg err" id="qvMsg"></div>
       </div>
@@ -987,14 +1018,14 @@ const DEFAULT_SIZES = ["S","M","L","XL"];
 /* Precios de ejemplo en pesos mexicanos (MXN). Solo se usan como vista previa
    si tu catálogo real en Supabase aún no tiene productos. */
 const FALLBACK_PRODUCTS = [
-  { id: 1, name: "Local 2026", team: "FC Aurora", category: "local", price: 1499, old_price: null, color1:"#ff5b2e", color2:"#ffb020", badge:"new", rating:5, image_url:null, video_url:null, sizes: DEFAULT_SIZES },
-  { id: 2, name: "Visitante 2026", team: "Titanes FC", category: "visitante", price: 1399, old_price: 1699, color1:"#2ee6d6", color2:"#1a1030", badge:"sale", rating:4, image_url:null, video_url:null, sizes: DEFAULT_SIZES },
-  { id: 3, name: "Retro 1998", team: "Real Norte", category: "retro", price: 1599, old_price: null, color1:"#ffb020", color2:"#0b0d12", badge:null, rating:5, image_url:null, video_url:null, sizes: DEFAULT_SIZES },
-  { id: 4, name: "Selección Local", team: "Selección Nacional", category: "seleccion", price: 1699, old_price: null, color1:"#ff5b2e", color2:"#2ee6d6", badge:"new", rating:5, image_url:null, video_url:null, sizes: DEFAULT_SIZES },
-  { id: 5, name: "Visitante Edición Limitada", team: "Atlético Sol", category: "visitante", price: 1899, old_price: 2199, color1:"#7c5cff", color2:"#ff5b2e", badge:"sale", rating:4, image_url:null, video_url:null, sizes: DEFAULT_SIZES },
-  { id: 6, name: "Retro 2005", team: "FC Aurora", category: "retro", price: 1549, old_price: null, color1:"#0b0d12", color2:"#ff5b2e", badge:null, rating:5, image_url:null, video_url:null, sizes: DEFAULT_SIZES },
-  { id: 7, name: "Local Alterno", team: "Titanes FC", category: "local", price: 1449, old_price: null, color1:"#2ee6d6", color2:"#ffb020", badge:null, rating:4, image_url:null, video_url:null, sizes: DEFAULT_SIZES },
-  { id: 8, name: "Selección Visitante", team: "Selección Nacional", category: "seleccion", price: 1699, old_price: 1999, color1:"#1a1030", color2:"#2ee6d6", badge:"sale", rating:5, image_url:null, video_url:null, sizes: DEFAULT_SIZES },
+  { id: 1, name: "Local 2026", team: "FC Aurora", category: "local", price: 1499, old_price: null, color1:"#d6ff3f", color2:"#7ec850", badge:"new", rating:5, image_url:null, video_url:null, sizes: DEFAULT_SIZES },
+  { id: 2, name: "Visitante 2026", team: "Titanes FC", category: "visitante", price: 1399, old_price: 1699, color1:"#7ec850", color2:"#16210a", badge:"sale", rating:4, image_url:null, video_url:null, sizes: DEFAULT_SIZES },
+  { id: 3, name: "Retro 1998", team: "Real Norte", category: "retro", price: 1599, old_price: null, color1:"#ffb020", color2:"#0a0a0b", badge:null, rating:5, image_url:null, video_url:null, sizes: DEFAULT_SIZES },
+  { id: 4, name: "Selección Local", team: "Selección Nacional", category: "seleccion", price: 1699, old_price: null, color1:"#d6ff3f", color2:"#7ec850", badge:"new", rating:5, image_url:null, video_url:null, sizes: DEFAULT_SIZES },
+  { id: 5, name: "Visitante Edición Limitada", team: "Atlético Sol", category: "visitante", price: 1899, old_price: 2199, color1:"#7c5cff", color2:"#d6ff3f", badge:"sale", rating:4, image_url:null, video_url:null, sizes: DEFAULT_SIZES },
+  { id: 6, name: "Retro 2005", team: "FC Aurora", category: "retro", price: 1549, old_price: null, color1:"#0a0a0b", color2:"#d6ff3f", badge:null, rating:5, image_url:null, video_url:null, sizes: DEFAULT_SIZES },
+  { id: 7, name: "Local Alterno", team: "Titanes FC", category: "local", price: 1449, old_price: null, color1:"#7ec850", color2:"#ffb020", badge:null, rating:4, image_url:null, video_url:null, sizes: DEFAULT_SIZES },
+  { id: 8, name: "Selección Visitante", team: "Selección Nacional", category: "seleccion", price: 1699, old_price: 1999, color1:"#16210a", color2:"#7ec850", badge:"sale", rating:5, image_url:null, video_url:null, sizes: DEFAULT_SIZES },
 ];
 
 let PRODUCTS = [];
@@ -1013,6 +1044,7 @@ async function loadProducts() {
         PRODUCTS = data.map(normalizeProduct);
         usingRealCatalog = true;
         renderProducts();
+        renderHeroMedia();
         return;
       }
     }
@@ -1022,6 +1054,26 @@ async function loadProducts() {
   usingRealCatalog = false;
   PRODUCTS = FALLBACK_PRODUCTS;
   renderProducts();
+  renderHeroMedia();
+}
+
+/* Muestra el video de 10s del producto destacado directamente en el hero
+   (nunca una foto de modelo) — si aún no hay productos con video/foto,
+   se deja el gráfico abstracto de respaldo. */
+function renderHeroMedia() {
+  const wrap = document.getElementById("heroVisual");
+  if (!wrap) return;
+  const featured = PRODUCTS.find(p => p.video_url) || PRODUCTS.find(p => p.image_url);
+  if (!featured) return;
+  wrap.innerHTML = `
+    <div class="hero-media-frame">
+      ${productMediaHTML(featured, "herogrid")}
+      <div class="hero-media-tag">
+        <div class="team">${featured.team}</div>
+        <div class="name">${featured.name}</div>
+      </div>
+    </div>
+  `;
 }
 
 function normalizeProduct(row) {
@@ -1032,8 +1084,8 @@ function normalizeProduct(row) {
     category: row.category || "local",
     price: Number(row.price ?? 1499),
     old_price: row.old_price ? Number(row.old_price) : null,
-    color1: row.color1 || "#ff5b2e",
-    color2: row.color2 || "#2ee6d6",
+    color1: row.color1 || "#d6ff3f",
+    color2: row.color2 || "#7ec850",
     badge: row.badge || null,
     rating: row.rating || 5,
     image_url: row.image_url || null,
@@ -1061,12 +1113,7 @@ function productMediaHTML(p, idPrefix) {
   if (p.image_url) {
     return `<img src="${p.image_url}" alt="${p.name}" loading="lazy">`;
   }
-  return `
-    <svg width="120" height="120" viewBox="0 0 64 64"><use href="#jersey-icon" fill="url(#${idPrefix}-${p.id})"/></svg>
-    <svg width="0" height="0"><linearGradient id="${idPrefix}-${p.id}" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="${p.color1}"/><stop offset="1" stop-color="${p.color2}"/>
-    </linearGradient></svg>
-  `;
+  return `<svg width="120" height="120" viewBox="0 0 64 64"><use href="#jersey-icon" fill="url(#brandGrad)"/></svg>`;
 }
 
 function productCard(p) {
@@ -1076,7 +1123,7 @@ function productCard(p) {
   const stars = "★".repeat(p.rating) + "☆".repeat(5 - p.rating);
   return `
     <div class="card">
-      <div class="card-media" style="background:linear-gradient(145deg, ${p.color1}22, ${p.color2}22)" onclick="openQuickView(${p.id})">
+      <div class="card-media" onclick="openQuickView(${p.id})">
         ${badge}
         <button class="card-fav" aria-label="Favorito" onclick="event.stopPropagation();">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
@@ -1146,7 +1193,7 @@ function updateCartUI() {
       if (!p) return "";
       return `
         <div class="d-item">
-          <div class="d-item-media" style="background:linear-gradient(145deg, ${p.color1}22, ${p.color2}22)">
+          <div class="d-item-media">
             ${productMediaHTML(p, "cgrad")}
           </div>
           <div class="d-item-info">
@@ -1187,17 +1234,30 @@ function openQuickView(id) {
   qvProduct = p;
   qvSize = null;
   qvQty = 1;
-  document.getElementById("qvMedia").innerHTML = productMediaHTML(p, "qvgrad");
-  document.getElementById("qvMedia").style.background = `linear-gradient(145deg, ${p.color1}22, ${p.color2}22)`;
+  const badge = p.badge === "new" ? '<span class="card-badge badge-new">Nuevo</span>'
+              : p.badge === "sale" ? '<span class="card-badge badge-sale">Oferta</span>' : "";
+  document.getElementById("qvMedia").innerHTML = badge + productMediaHTML(p, "qvgrad");
   document.getElementById("qvTeam").textContent = p.team;
   document.getElementById("qvName").textContent = p.name;
+  const stars = "★".repeat(p.rating) + "☆".repeat(5 - p.rating);
+  document.getElementById("qvRating").innerHTML = `${stars} <span style="color:var(--text-faint)">${p.rating}.0 · (${20 + p.id * 7})</span>`;
   document.getElementById("qvPrice").textContent = formatMXN(p.price);
   document.getElementById("qvQty").textContent = "1";
   document.getElementById("qvMsg").textContent = "";
   document.getElementById("qvSizes").innerHTML = p.sizes.map(s =>
     `<button type="button" class="size-pill" onclick="selectSize('${s}')">${s}</button>`).join("");
+  document.getElementById("qvDetails").innerHTML = `
+    <div><span>Material</span><span>Poliéster premium tipo cancha</span></div>
+    <div><span>Envío</span><span>24–72 horas</span></div>
+    <div><span>Cambios</span><span>Hasta 30 días</span></div>
+  `;
+  updateQvAddBtn();
   quickViewOverlay.classList.add("open");
   lockScroll();
+}
+function updateQvAddBtn() {
+  if (!qvProduct) return;
+  document.getElementById("qvAddBtn").textContent = `Agregar al carrito · ${formatMXN(qvProduct.price * qvQty)}`;
 }
 function selectSize(size) {
   qvSize = size;
@@ -1209,6 +1269,7 @@ function selectSize(size) {
 function qvChangeQty(delta) {
   qvQty = Math.max(1, qvQty + delta);
   document.getElementById("qvQty").textContent = qvQty;
+  updateQvAddBtn();
 }
 function confirmAddToCart() {
   if (!qvSize) {
@@ -1696,7 +1757,7 @@ function renderAdminProductsTable() {
   body.innerHTML = PRODUCTS.map(p => `
     <tr>
       <td>
-        <div class="admin-thumb" style="background:linear-gradient(145deg, ${p.color1}22, ${p.color2}22)">
+        <div class="admin-thumb">
           ${productMediaHTML(p, "agrad")}
         </div>
       </td>
